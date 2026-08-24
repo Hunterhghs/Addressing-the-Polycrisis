@@ -7,12 +7,13 @@ A digital report by H Heuristics on the coupled loops of pollution, global warmi
 ## Structure
 
 - `index.html` — the full single-page report (prose, charts, loop diagram, agenda, sources)
+- `assets/chart.umd.min.js` — vendored Chart.js 4.4.1 (no CDN dependency at runtime)
 - `draft.md` — the linted prose source (english-report-writing skill, `prose_lint.py` passes with 0 errors)
 
 ## Stack
 
 - Static HTML/CSS/JS — no build step
-- Chart.js 4 (CDN) for figures; inline SVG for the loop diagram
+- Chart.js 4 (vendored locally) for figures; inline SVG for the loop diagram
 - Typefaces: Newsreader, Source Serif 4, Inter (Google Fonts)
 - Light print editorial design
 
