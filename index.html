@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Addressing the Polycrisis — Breaking the Loops Between Pollution, Warming, and Poverty</title>
+<meta name="description" content="A digital report by H Heuristics on the coupled loops of pollution, global warming, and poverty — and the levers that break them.">
+<meta property="og:title" content="Addressing the Polycrisis">
+<meta property="og:description" content="Pollution, warming, and poverty are one coupled loop. Mitigation succeeds only when it breaks the couplings, not the symptoms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700;6..72,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<style>
+  :root{
+    --paper:#f7f2e8;
+    --paper-bright:#fffdf7;
+    --ink:#191712;
+    --muted:#6d6457;
+    --faint:#8a8172;
+    --rule:#d9cfbf;
+    --rule-strong:#c3b79f;
+    --teal:#0e6b60;
+    --teal-deep:#0a4a42;
+    --ember:#c2410c;
+    --gold:#a8760f;
+    --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+    --display:"Newsreader", "Source Serif 4", Georgia, serif;
+    --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --measure:44rem;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation:none!important;transition:none!important;}
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:1.0625rem;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  a{color:var(--teal);text-decoration-color:var(--rule-strong);text-underline-offset:3px;}
+  a:hover{color:var(--ember);text-decoration-color:var(--ember);}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--ember);outline-offset:2px;border-radius:2px;}
+
+  .skip-link{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:.6rem 1rem;z-index:200;font-family:var(--sans);font-size:.85rem;}
+  .skip-link:focus{left:0;}
+
+  /* Masthead */
+  .masthead{
+    border-bottom:1px solid var(--ink);
+    background:var(--paper-bright);
+    position:sticky;top:0;z-index:60;
+  }
+  .masthead-inner{
+    max-width:78rem;margin:0 auto;padding:.9rem 1.5rem;
+    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  }
+  .brand{
+    font-family:var(--sans);font-weight:700;font-size:.8rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--ink);text-decoration:none;
+  }
+  .brand span{color:var(--ember);}
+  .masthead-meta{
+    font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    white-space:nowrap;
+  }
+
+  /* Chapter rail */
+  .chapter-rail{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,242,232,.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--rule);
+  }
+  .chapter-rail-inner{
+    max-width:78rem;margin:0 auto;padding:.55rem 1.5rem;
+    display:flex;gap:1.1rem;overflow-x:auto;scrollbar-width:thin;
+  }
+  .chapter-rail a{
+    font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap;
+    padding:.2rem 0;border-bottom:2px solid transparent;
+  }
+  .chapter-rail a:hover{color:var(--ink);}
+  .chapter-rail a.active{color:var(--ink);border-bottom-color:var(--ember);}
+  .chapter-rail a .num{color:var(--ember);font-variant-numeric:tabular-nums;}
+
+  /* Hero */
+  .hero{
+    max-width:78rem;margin:0 auto;padding:4.5rem 1.5rem 3.5rem;
+  }
+  .kicker{
+    font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--ember);margin:0 0 1.4rem;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:minmax(0,1fr) 20rem;gap:3rem;align-items:end;
+  }
+  h1.title{
+    font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5.2vw,4.4rem);
+    line-height:1.04;letter-spacing:-.015em;margin:0 0 1.6rem;
+    max-width:52rem;
+    text-wrap:balance;
+  }
+  .title em{font-style:italic;color:var(--teal);}
+  .dek{
+    font-family:var(--display);font-size:1.35rem;line-height:1.5;color:#3d372d;
+    max-width:42rem;margin:0 0 1.8rem;
+  }
+  .byline{
+    font-family:var(--sans);font-size:.8rem;color:var(--muted);letter-spacing:.04em;
+    border-top:1px solid var(--rule-strong);padding-top:1rem;max-width:42rem;
+  }
+  .byline strong{color:var(--ink);}
+
+  .hero-aside{
+    border-top:4px solid var(--ink);
+  }
+  .hero-aside .issue{
+    font-family:var(--sans);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+    margin:1rem 0 .5rem;
+  }
+  .hero-aside .issue-line{
+    font-family:var(--display);font-size:1.15rem;font-weight:600;line-height:1.3;
+    border-bottom:1px solid var(--rule);padding-bottom:1rem;margin-bottom:1rem;
+  }
+  .hero-aside dl{margin:0;}
+  .hero-aside .stat{
+    display:grid;grid-template-columns:1fr auto;gap:.4rem 1rem;
+    border-bottom:1px solid var(--rule);padding:.8rem 0;margin:0;
+  }
+  .hero-aside dt{font-family:var(--sans);font-size:.72rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;align-self:center;}
+  .hero-aside dd{margin:0;font-family:var(--display);font-size:1.5rem;font-weight:700;text-align:right;font-variant-numeric:tabular-nums;}
+
+  /* Executive summary */
+  .summary{
+    background:var(--paper-bright);
+    border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  }
+  .summary-inner{
+    max-width:78rem;margin:0 auto;padding:2.8rem 1.5rem;
+    display:grid;grid-template-columns:12rem minmax(0,1fr);gap:2.5rem;
+  }
+  .summary-label{
+    font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ember);
+    margin:0;
+  }
+  .summary-text p{margin:0 0 1rem;}
+  .summary-text p:last-child{margin-bottom:0;}
+  .summary-text .lead{font-family:var(--display);font-size:1.25rem;line-height:1.5;color:var(--ink);}
+
+  /* Body layout */
+  main{max-width:78rem;margin:0 auto;padding:0 1.5rem 4rem;}
+  .report-body{
+    display:grid;grid-template-columns:minmax(0,var(--measure)) minmax(0,1fr);
+    column-gap:3rem;row-gap:2rem;align-items:start;
+  }
+  section.chapter{
+    grid-column:1/-1;
+    display:grid;grid-template-columns:minmax(0,var(--measure)) minmax(0,1fr);
+    column-gap:3rem;align-items:start;
+    padding:3.2rem 0 1rem;
+    border-top:1px solid var(--rule);
+    scroll-margin-top:7.5rem;
+  }
+  section.chapter:first-of-type{border-top:0;}
+  .chapter-head{grid-column:1/-1;margin-bottom:1.5rem;}
+  .chapter-num{
+    font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ember);
+    display:block;margin-bottom:.6rem;
+  }
+  .chapter-head h2{
+    font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,3vw,2.4rem);
+    line-height:1.12;letter-spacing:-.01em;margin:0;max-width:56rem;text-wrap:balance;
+  }
+  .prose-col p{margin:0 0 1.25rem;}
+  .prose-col p.lede::first-letter{
+    font-family:var(--display);font-weight:700;font-size:3.4rem;line-height:.82;
+    float:left;padding:.12rem .5rem 0 0;color:var(--teal);
+  }
+  .prose-col strong{font-weight:600;}
+  .prose-col em{font-style:italic;}
+
+  .side-col{
+    position:sticky;top:7.5rem;
+    font-family:var(--sans);font-size:.8rem;color:var(--muted);line-height:1.55;
+    display:flex;flex-direction:column;gap:1.5rem;
+  }
+  .side-col .note{
+    border-left:3px solid var(--gold);padding-left:1rem;
+  }
+  .side-col .note h3{
+    font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink);margin:0 0 .4rem;
+  }
+  .side-col .note p{margin:0;}
+
+  .figure{
+    grid-column:2;
+    margin:0 0 1.5rem;
+    background:var(--paper-bright);
+    border:1px solid var(--rule);
+    padding:1.4rem 1.4rem 1rem;
+    position:relative;
+  }
+  .figure h3{
+    font-family:var(--sans);font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink);margin:0 0 .9rem;
+  }
+  .figure .chart-wrap{position:relative;height:19rem;}
+  .figure canvas{max-width:100%;}
+  .figcaption{
+    font-family:var(--sans);font-size:.74rem;color:var(--muted);line-height:1.5;
+    border-top:1px solid var(--rule);margin-top:1rem;padding-top:.7rem;
+  }
+  .figcaption strong{color:var(--ink);}
+  .figure-wide{grid-column:1/-1;}
+  .figure-wide .chart-wrap{height:22rem;}
+
+  /* Loop diagram */
+  .loop-figure{grid-column:1/-1;background:transparent;border:0;padding:1rem 0 0;}
+  .loop-svg-wrap{width:100%;overflow-x:auto;}
+  .loop-svg{width:100%;min-width:34rem;height:auto;display:block;}
+  .loop-node{cursor:pointer;}
+  .loop-node .node-fill{transition:fill .15s ease;}
+  .loop-node:hover .node-fill,.loop-node:focus .node-fill{fill:#fff1e2;}
+  .loop-node:focus{outline:none;}
+  .loop-node text{user-select:none;}
+  .loop-arrow{transition:opacity .2s ease;}
+
+  /* Callout */
+  .callout{
+    grid-column:1/-1;
+    margin:2.5rem 0 1rem;
+    border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+    padding:2.2rem 1.5rem 2rem;
+    display:grid;grid-template-columns:12rem minmax(0,1fr);gap:2.5rem;
+  }
+  .callout-label{
+    font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ember);
+  }
+  .callout blockquote{
+    margin:0;font-family:var(--display);font-size:1.55rem;line-height:1.35;font-weight:600;
+  }
+  .callout blockquote p{margin:0;}
+
+  /* Agenda table */
+  .agenda-wrap{grid-column:1/-1;overflow-x:auto;background:var(--paper-bright);border:1px solid var(--rule);}
+  table.agenda{
+    width:100%;border-collapse:collapse;font-family:var(--sans);font-size:.86rem;line-height:1.5;
+    min-width:40rem;
+  }
+  table.agenda caption{
+    font-family:var(--sans);font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    text-align:left;padding:1rem 1.2rem .6rem;color:var(--ink);
+  }
+  table.agenda th{
+    text-align:left;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    border-bottom:2px solid var(--ink);padding:.6rem 1.2rem;background:var(--paper);
+  }
+  table.agenda td{border-bottom:1px solid var(--rule);padding:.9rem 1.2rem;vertical-align:top;}
+  table.agenda td.horizon{font-weight:700;color:var(--teal-deep);white-space:nowrap;}
+  table.agenda tr:last-child td{border-bottom:0;}
+
+  /* Measure cards */
+  .measure-grid{
+    grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1rem;margin:1.5rem 0 0;
+  }
+  .measure-card{
+    background:var(--paper-bright);border:1px solid var(--rule);padding:1.1rem 1.2rem;
+  }
+  .measure-card h3{
+    font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ember);
+    margin:0 0 .4rem;
+  }
+  .measure-card p{margin:0;font-size:.95rem;line-height:1.55;}
+
+  /* Sources */
+  .sources{grid-column:1/-1;border-top:1px solid var(--ink);padding-top:2.2rem;}
+  .sources h2{
+    font-family:var(--display);font-size:1.6rem;font-weight:700;margin:0 0 1.4rem;
+  }
+  .sources ol{
+    margin:0;padding-left:1.2rem;columns:2;column-gap:3rem;
+    font-family:var(--sans);font-size:.82rem;line-height:1.6;color:var(--muted);
+  }
+  .sources li{margin-bottom:.7rem;break-inside:avoid;}
+  .sources a{color:var(--muted);}
+  .sources a:hover{color:var(--ember);}
+
+  /* Binding term */
+  .binding{
+    grid-column:1/-1;
+    margin-top:2.5rem;
+    background:var(--ink);color:var(--paper);
+    padding:2.6rem 2.2rem;
+  }
+  .binding .label{
+    font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#e8b184;
+    display:block;margin-bottom:1rem;
+  }
+  .binding p{
+    font-family:var(--display);font-size:1.6rem;line-height:1.4;font-weight:600;margin:0;max-width:56rem;
+  }
+
+  /* Footer */
+  footer{
+    border-top:1px solid var(--ink);margin-top:3rem;
+    background:var(--paper-bright);
+  }
+  .footer-inner{
+    max-width:78rem;margin:0 auto;padding:2.4rem 1.5rem 3rem;
+    display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+    font-family:var(--sans);font-size:.8rem;color:var(--muted);line-height:1.6;
+  }
+  .footer-inner .brand{display:block;margin-bottom:.8rem;font-size:.85rem;}
+  .footer-inner a{color:var(--muted);}
+  .footer-inner a:hover{color:var(--ember);}
+  .footer-right{text-align:right;}
+  .back-top{
+    display:inline-block;margin-top:1rem;font-family:var(--sans);font-size:.72rem;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--teal);text-decoration:none;
+  }
+
+  @media (max-width: 56rem){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-aside{max-width:26rem;}
+    .summary-inner{grid-template-columns:1fr;gap:1rem;}
+    .report-body,section.chapter{grid-template-columns:1fr;}
+    .figure{grid-column:1;}
+    .side-col{position:static;}
+    .callout{grid-template-columns:1fr;gap:1rem;}
+    .sources ol{columns:1;}
+    .footer-inner{grid-template-columns:1fr;}
+    .footer-right{text-align:left;}
+    .masthead-meta{display:none;}
+  }
+  @media print{
+    .chapter-rail,.back-top{display:none;}
+    body{background:#fff;color:#000;font-size:11pt;}
+    .masthead{position:static;}
+    .figure,.measure-card,.agenda-wrap,.callout,.binding{break-inside:avoid;}
+    a{color:#000;text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="#top">H<span>·</span>Heuristics</a>
+    <span class="masthead-meta">Digital Report · August 2026</span>
+  </div>
+</header>
+
+<nav class="chapter-rail" aria-label="Report chapters">
+  <div class="chapter-rail-inner" id="chapterRail">
+    <a href="#summary"><span class="num">00</span> Summary</a>
+    <a href="#framing"><span class="num">01</span> One system</a>
+    <a href="#pollution"><span class="num">02</span> Pollution</a>
+    <a href="#warming"><span class="num">03</span> Warming</a>
+    <a href="#poverty"><span class="num">04</span> Poverty</a>
+    <a href="#couplings"><span class="num">05</span> Couplings</a>
+    <a href="#levers"><span class="num">06</span> Levers</a>
+    <a href="#agenda"><span class="num">07</span> Agenda</a>
+    <a href="#countercase"><span class="num">08</span> Counter-case</a>
+    <a href="#measure"><span class="num">09</span> Measure</a>
+    <a href="#sources"><span class="num">10</span> Sources</a>
+  </div>
+</nav>
+
+<div class="hero" id="top">
+  <p class="kicker">H Heuristics · Digital Report · The Polycrisis Series</p>
+  <div class="hero-grid">
+    <div>
+      <h1 class="title">Addressing the polycrisis means <em>breaking the loops</em> between pollution, warming, and poverty</h1>
+      <p class="dek">Three emergencies, one coupled system. The report maps the feedback loops that keep the polycrisis locked in — and the levers that break more than one loop at a time.</p>
+      <p class="byline">Prepared by <strong>H Heuristics</strong> · August 2026 · Verified with Veles (Fable-5) · Sources: WHO, World Bank, WMO, UNEP, OECD, IEA, IRENA, Ember, Lancet Commission</p>
+    </div>
+    <aside class="hero-aside" aria-label="Key figures">
+      <p class="issue">The system in four readings</p>
+      <p class="issue-line">Each figure is a position on the same causal loop.</p>
+      <dl>
+        <div class="stat"><dt>Atmospheric CO₂</dt><dd>424 ppm</dd></div>
+        <div class="stat"><dt>Air-pollution deaths / year</dt><dd>6.7 M</dd></div>
+        <div class="stat"><dt>Extreme poverty, 2025</dt><dd>831 M</dd></div>
+        <div class="stat"><dt>Warming on current policies</dt><dd>~3.1 °C</dd></div>
+      </dl>
+    </aside>
+  </div>
+</div>
+
+<section class="summary" id="summary">
+  <div class="summary-inner">
+    <p class="summary-label">Executive summary</p>
+    <div class="summary-text">
+      <p class="lead">The global polycrisis is not a portfolio of three emergencies. It is one coupled system in which pollution, warming, and poverty each tighten the other two.</p>
+      <p>Warming cuts harvests and labor capacity, deepening poverty. Poverty forces households onto biomass and coal, intensifying pollution. Pollution damages health and earnings, deepening poverty again. Single-issue interventions stall because the other two crises reimport the problem they just solved.</p>
+      <p>The mitigation agenda therefore needs a different criterion. Rank every intervention by the number of couplings it breaks. Clean energy, the circular economy, energy access, adaptation finance, and honest pricing all pass that test. The report closes with a sequenced agenda to 2050 and a binding term for reading the polycrisis as one loop rather than three scorecards.</p>
+    </div>
+  </div>
+</section>
+
+<main id="main" class="report-body">
+
+  <section class="chapter" id="framing" aria-labelledby="h-framing">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter 01</span>
+      <h2 id="h-framing">The three crises are one system, not a portfolio</h2>
+    </div>
+    <div class="prose-col">
+      <p class="lede">Governments still run the polycrisis as a portfolio. Environment ministries own pollution. Climate ministries own warming. Development ministries own poverty. Each files a separate scorecard, and each discovers the same thing: its best interventions stall because the other two crises reimport the problem it just solved.</p>
+      <p>A pollution crackdown that raises energy prices can push households back to cheap solid fuels. A poverty program built on coal-fired growth buys income now and buys warming later. A carbon price that ignores household budgets can deepen energy poverty and trigger a political backlash that kills the policy. The portfolio approach fails because the couplings are the problem, not the context.</p>
+      <p>The system has a name for this behavior. A polycrisis cascade describes multiple compounding crises where failure in one domain accelerates failure in another. The word "cascade" matters. These are not independent risks that happen to coincide. Each crisis is an input to the others, and every year the couplings are left in place, the cost of unwinding them rises.</p>
+    </div>
+    <aside class="side-col">
+      <div class="note">
+        <h3>Definition</h3>
+        <p><strong>Polycrisis cascade</strong> — multiple compounding crises in which failure in one domain accelerates failure in another. Distinct from independent, parallel risks.</p>
+      </div>
+      <div class="note">
+        <h3>Why portfolios fail</h3>
+        <p>Three scorecards optimize three single objectives. The couplings between them are nobody's objective — so they stay tight.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="chapter" id="pollution" aria-labelledby="h-pollution">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter 02</span>
+      <h2 id="h-pollution">The pollution cycle runs on a linear economy</h2>
+    </div>
+    <div class="prose-col">
+      <p class="lede">The pollution cycle begins with a linear material economy: extract, use, discard. The OECD put global plastics production near 460 million tonnes in 2019, with roughly 22 million tonnes leaking into the environment that same year. On current trends production could triple by 2060, and leakage would grow with it.</p>
+      <p>Plastic is the most visible stream, not the only one. Nitrogen and phosphorus runoff, industrial chemicals, heavy metals, and untreated wastewater all follow the same linear logic.</p>
+      <p>The health bill is already counted. The Lancet Commission on Pollution and Health estimated 9 million premature deaths from pollution in 2019, roughly one in six of all deaths worldwide. Air pollution is the largest share. The World Health Organization attributes 4.2 million premature deaths a year to ambient air pollution alone, with 89 percent of them in low- and middle-income countries, and puts the combined toll of ambient and household air pollution at 6.7 million.</p>
+      <p>Pollution is not a side effect. It is the metabolic byproduct of the same energy and material system that powers growth, and the cycle closes when pollutants return as disease, lost work, damaged crops, and lower earnings. The linear economy ships materials forward and ships costs back. The return leg of that shipment lands hardest on the poor, who live closest to the waste sites, the diesel corridors, and the open cooking fires.</p>
+    </div>
+    <figure class="figure" id="fig-pollution">
+      <h3>Fig. 2.1 — Premature deaths from air pollution</h3>
+      <div class="chart-wrap"><canvas id="chartPollution" aria-label="Bar chart: ambient air pollution causes 4.2 million premature deaths a year and household air pollution causes 3.2 million" role="img"></canvas></div>
+      <p class="figcaption"><strong>Source:</strong> World Health Organization, 2024. Ambient (outdoor) air pollution: 4.2 million premature deaths (2019). Household air pollution: 3.2 million. The combined toll is 6.7 million after accounting for overlap; 89% of ambient deaths occur in low- and middle-income countries.</p>
+    </figure>
+    <figure class="figure" id="fig-plastics">
+      <h3>Fig. 2.2 — Global plastics production, 1950–2060</h3>
+      <div class="chart-wrap"><canvas id="chartPlastics" aria-label="Line chart: plastics production grew from about 2 million tonnes in 1950 to 460 million tonnes in 2019 and is projected near 1.2 billion tonnes by 2060" role="img"></canvas></div>
+      <p class="figcaption"><strong>Source:</strong> OECD Global Plastics Outlook. Production reached roughly 460 Mt in 2019; under business-as-usual it approaches 1,231 Mt by 2060.</p>
+    </figure>
+  </section>
+
+  <section class="chapter" id="warming" aria-labelledby="h-warming">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter 03</span>
+      <h2 id="h-warming">Warming is the carbon cycle pushed out of balance</h2>
+    </div>
+    <div class="prose-col">
+      <p class="lede">Warming is the same story told in the atmosphere. Burning fossil fuels and clearing land moved carbon that had been stored for millions of years into the air in under two centuries. Atmospheric carbon dioxide now sits near 424 parts per million against roughly 280 before industrialization.</p>
+      <p>The World Meteorological Organization recorded 2024 as the first calendar year to cross 1.5 degrees above the preindustrial baseline, and the long-term average continues to rise behind it.</p>
+      <p>The danger is not the single hot year. It is the feedback loops that a warmer world switches on. Thawing permafrost releases carbon and methane. Melting ice replaces reflective surfaces with dark water that absorbs more heat. Drier forests burn more readily and store less carbon. Each of these loops is a coupling of the same kind that binds the polycrisis, and each one tightens as temperature rises.</p>
+      <p>Policy has not yet bent the emissions curve enough to stop them. The UNEP Emissions Gap Report 2024 finds that policies currently in place point toward roughly 3.1 degrees of warming by 2100. Full implementation of existing national pledges would do better, but the gap between pledge and policy remains the difference between a difficult transition and a dangerous one.</p>
+    </div>
+    <figure class="figure" id="fig-co2">
+      <h3>Fig. 3.1 — Atmospheric CO₂, 1960–2024</h3>
+      <div class="chart-wrap"><canvas id="chartCO2" aria-label="Line chart: atmospheric carbon dioxide rose from about 317 parts per million in 1960 to 424 parts per million in 2024" role="img"></canvas></div>
+      <p class="figcaption"><strong>Source:</strong> NOAA Global Monitoring Laboratory, Mauna Loa annual mean. The preindustrial baseline of ~280 ppm is shown for reference.</p>
+    </figure>
+    <figure class="figure" id="fig-scenarios">
+      <h3>Fig. 3.2 — Warming outcomes by 2100</h3>
+      <div class="chart-wrap"><canvas id="chartScenarios" aria-label="Horizontal bar chart: current policies lead to about 3.1 degrees of warming, unconditional pledges about 2.6, conditional pledges about 2.5, versus the 1.5 degree Paris goal" role="img"></canvas></div>
+      <p class="figcaption"><strong>Source:</strong> UNEP Emissions Gap Report 2024. Values are central estimates; the gap between current policies and full pledge implementation is the difference between a difficult transition and a dangerous one.</p>
+    </figure>
+  </section>
+
+  <section class="chapter" id="poverty" aria-labelledby="h-poverty">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter 04</span>
+      <h2 id="h-poverty">Poverty is a trap with energy, health, and climate walls</h2>
+    </div>
+    <div class="prose-col">
+      <p class="lede">Poverty looks like a single number and behaves like a trap. The World Bank counted 831 million people below its extreme poverty line in 2025, down from about 2.3 billion in 1990. The reduction is real and historically large. It is also slowing, and it is increasingly concentrated in Sub-Saharan Africa and in countries affected by conflict and fragility, where climate shocks now hit the hardest.</p>
+      <p>The trap has three walls. The energy wall: roughly 685 million people still lack electricity, and 2.1 billion lack clean cooking, per the 2024 SDG 7 tracking report. The health wall: the same households that lack clean energy breathe the worst air and carry the heaviest pollution burden. The climate wall: drought, flood, and heat destroy assets and income precisely where savings are thinnest and insurance is rarest.</p>
+      <p>The World Bank's Poverty, Prosperity, and Planet report now frames the task as finding pathways out of the polycrisis rather than out of poverty alone. That is the correct frame. A household cannot exit poverty by income growth while its children miss school from air pollution, its crops fail from heat, and its energy comes from fuel that poisons the kitchen.</p>
+    </div>
+    <aside class="side-col">
+      <div class="note">
+        <h3>The three walls</h3>
+        <p><strong>Energy</strong> — 685 million people lack electricity; 2.1 billion lack clean cooking.<br><strong>Health</strong> — the energy-poor breathe the worst air.<br><strong>Climate</strong> — shocks destroy assets where savings are thinnest.</p>
+      </div>
+      <div class="note">
+        <h3>Poverty as a system state</h3>
+        <p>The World Bank's 2026 Poverty, Prosperity, and Planet report is titled "Pathways Out of the Polycrisis" — poverty policy now names the coupling explicitly.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="chapter" id="couplings" aria-labelledby="h-couplings">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter 05</span>
+      <h2 id="h-couplings">Three loops bind the system together</h2>
+    </div>
+    <div class="prose-col">
+      <p class="lede">The couplings are the report's central object. Three loops do most of the work.</p>
+      <p><strong>The pollution-poverty loop</strong> runs through the kitchen. Households without clean cooking fuel burn biomass, coal, or kerosene indoors. The smoke causes respiratory disease, heart disease, and premature death, and it steals the labor hours and school days that would otherwise build income. The income loss keeps clean fuel out of reach. The loop tightens on itself.</p>
+      <p><strong>The warming-poverty loop</strong> runs through heat and harvest. Rising temperatures cut outdoor labor productivity and crop yields in the regions that depend on both. Poorer countries contributed least to the emissions that cause the warming and carry the largest share of the damage. The World Health Organization finds that 89 percent of ambient air pollution deaths occur in low- and middle-income countries, the same countries where heat exposure is rising fastest.</p>
+      <p><strong>The pollution-warming loop</strong> runs through the same fuels. Black carbon from diesel and biomass absorbs heat and accelerates ice melt. Methane from waste and agriculture is a potent short-lived climate pollutant. The plastic lifecycle emits greenhouse gases at every stage from extraction through incineration. Some aerosols from combustion temporarily mask part of the warming, which means cleaning the air without cutting emissions can unmask heat that was already there.</p>
+      <p>These loops produce what this analysis calls a compound vulnerability multiplier. Overlapping vulnerabilities do not add; they multiply. A household that is energy-poor, heat-exposed, and breathing polluted air faces a risk larger than the sum of the three risks written separately. Mitigation that ignores the multiplier undercounts the payoff of any intervention that breaks two loops at once.</p>
+    </div>
+    <figure class="figure figure-wide loop-figure" id="fig-loop">
+      <div class="loop-svg-wrap">
+        <svg class="loop-svg" viewBox="0 0 900 420" role="img" aria-labelledby="loop-title loop-desc">
+          <title id="loop-title">The three loops of the polycrisis</title>
+          <desc id="loop-desc">A diagram of three mutually reinforcing nodes: pollution, global warming, and poverty, each feeding the other two.</desc>
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#191712"/>
+            </marker>
+          </defs>
+          <!-- coupling arrows -->
+          <g class="loop-arrows">
+            <path d="M 300 150 C 430 90, 560 90, 620 150" fill="none" stroke="#191712" stroke-width="1.6" marker-end="url(#arrow)" opacity="0.55"/>
+            <path d="M 640 240 C 560 300, 430 300, 320 260" fill="none" stroke="#191712" stroke-width="1.6" marker-end="url(#arrow)" opacity="0.55"/>
+            <path d="M 190 250 C 150 300, 160 330, 230 350" fill="none" stroke="#191712" stroke-width="1.6" marker-end="url(#arrow)" opacity="0.55"/>
+            <path d="M 250 370 C 320 350, 330 320, 300 280" fill="none" stroke="#191712" stroke-width="1.6" marker-end="url(#arrow)" opacity="0.55"/>
+            <path d="M 620 330 C 590 360, 550 380, 500 370" fill="none" stroke="#191712" stroke-width="1.6" marker-end="url(#arrow)" opacity="0.55"/>
+            <path d="M 480 355 C 450 330, 470 300, 520 285" fill="none" stroke="#191712" stroke-width="1.6" marker-end="url(#arrow)" opacity="0.55"/>
+          </g>
+          <!-- pollution node -->
+          <g class="loop-node" tabindex="0" data-node="pollution">
+            <circle class="node-fill" cx="620" cy="180" r="80" fill="#f7f2e8" stroke="#c2410c" stroke-width="3"/>
+            <text x="620" y="168" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#c2410c">POLLUTION</text>
+            <text x="620" y="192" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" fill="#191712">linear materials · 6.7M deaths/yr</text>
+            <text x="620" y="212" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" fill="#191712">black carbon · methane</text>
+          </g>
+          <!-- warming node -->
+          <g class="loop-node" tabindex="0" data-node="warming">
+            <circle class="node-fill" cx="300" cy="160" r="80" fill="#f7f2e8" stroke="#0e6b60" stroke-width="3"/>
+            <text x="300" y="148" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#0e6b60">WARMING</text>
+            <text x="300" y="172" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" fill="#191712">424 ppm CO₂ · 1.5°C crossed</text>
+            <text x="300" y="192" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" fill="#191712">heat · drought · ice loss</text>
+          </g>
+          <!-- poverty node -->
+          <g class="loop-node" tabindex="0" data-node="poverty">
+            <circle class="node-fill" cx="420" cy="360" r="80" fill="#f7f2e8" stroke="#a8760f" stroke-width="3"/>
+            <text x="420" y="348" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#a8760f">POVERTY</text>
+            <text x="420" y="372" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" fill="#191712">831M extreme poor · 2.1B</text>
+            <text x="420" y="392" text-anchor="middle" font-family="Source Serif 4, serif" font-size="13" fill="#191712">without clean cooking</text>
+          </g>
+          <!-- loop labels -->
+          <g font-family="Inter, sans-serif" font-size="11" fill="#6d6457">
+            <text x="455" y="96" text-anchor="middle">health damage → income loss</text>
+            <text x="455" y="398" text-anchor="middle">heat and harvest failure</text>
+            <text x="128" y="212" text-anchor="middle">climate exposure</text>
+            <text x="738" y="240" text-anchor="middle">combustion</text>
+          </g>
+        </svg>
+      </div>
+      <p class="figcaption"><strong>Fig. 5.1 — The three loops of the polycrisis.</strong> Each node feeds the other two. Select a node (keyboard or pointer) to trace its couplings. Break one arrow and the loop weakens; break two and the system starts to unwind.</p>
+    </figure>
+  </section>
+
+  <section class="chapter" id="levers" aria-labelledby="h-levers">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter 06</span>
+      <h2 id="h-levers">The levers that work break more than one loop</h2>
+    </div>
+    <div class="prose-col">
+      <p class="lede">The interventions that matter are the ones that break more than one coupling at a time.</p>
+      <p><strong>Clean energy is the largest lever.</strong> Solar photovoltaic costs have fallen roughly 90 percent since 2010, onshore wind levelized costs about 70 percent, and lithium-ion battery pack prices about 90 percent, per IRENA and BloombergNEF. The adoption data follow the cost data. Wind and solar supplied roughly 15 percent of global electricity in 2024 against under 2 percent in 2010, per Ember, and electric vehicles reached about 20 percent of new car sales, per the International Energy Agency. Clean energy investment hit roughly 2 trillion dollars in 2024 against about 1.1 trillion for fossil fuels. Renewable energy employment reached 16.2 million in 2023, per IRENA. One lever attacks warming, pollution, and energy poverty at once.</p>
+      <p><strong>The circular economy is the material-side lever.</strong> Cutting plastic production, designing for reuse, scaling recycling, and capturing methane from waste all reduce the pollution load and the emissions load in the same move. Extended producer responsibility moves the cost of the linear economy back onto the producers who design the waste in.</p>
+      <p><strong>Energy access is a development instrument, not a charity line item.</strong> Distributed solar, batteries, and mini-grids let late developers leapfrog the fossil pathway entirely. Every gigawatt of distributed clean power delivers energy access and emissions reduction and air quality improvement together.</p>
+      <p><strong>Adaptation finance and social protection are the poverty-side levers.</strong> Cash transfers, early warning systems, heat-resilient housing, and crop insurance buy households the buffer they need to stop one shock from becoming permanent poverty. These programs look like welfare; they function as loop-breakers because they keep households from falling back onto the polluting fuels and the exposed livelihoods that tighten the trap.</p>
+      <p><strong>Pricing and governance make the loops costly to maintain.</strong> Carbon pricing, fossil fuel subsidy reform, air quality standards, and product regulation change the arithmetic for every actor in the system at once. The World Health Organization's air quality guidelines give every country a measurable target for the pollution node of the loop.</p>
+      <p>None of these levers is new. What is new is the criterion for choosing among them: an intervention earns priority by the number of couplings it breaks, not by the single-issue scorecard it improves.</p>
+    </div>
+    <figure class="figure" id="fig-adoption">
+      <h3>Fig. 6.1 — Clean technology adoption, 2010 vs 2024</h3>
+      <div class="chart-wrap"><canvas id="chartAdoption" aria-label="Grouped bar chart: wind and solar rose from about 2 percent of global electricity in 2010 to 15 percent in 2024, and electric vehicles rose from under 1 percent to about 20 percent of new car sales" role="img"></canvas></div>
+      <p class="figcaption"><strong>Source:</strong> Ember (wind and solar share of electricity); International Energy Agency (electric vehicle share of new car sales). Clean energy investment reached roughly $2 trillion in 2024 against $1.1 trillion for fossil fuels (IEA).</p>
+    </figure>
+  </section>
+
+  <div class="callout" id="agenda" aria-labelledby="h-agenda">
+    <p class="callout-label">Chapter 07 · Agenda</p>
+    <blockquote>
+      <p>Rank every intervention by the number of couplings it breaks — not by the single-issue scorecard it improves.</p>
+    </blockquote>
+  </div>
+
+  <section class="chapter" id="agenda-body" aria-labelledby="h-agenda-body" style="border-top:0;padding-top:0;">
+    <div class="agenda-wrap">
+      <table class="agenda">
+        <caption>Table 7.1 — A sequenced agenda for loosening the loops</caption>
+        <thead>
+          <tr><th scope="col">Horizon</th><th scope="col">Objective</th><th scope="col">Priority moves</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="horizon">2026–2030</td>
+            <td>Scale the proven levers where the loops are tightest</td>
+            <td>Universal clean cooking finance; distributed solar and mini-grids; air-quality standards aligned to WHO guidelines; plastic reduction targets; fossil fuel subsidy reform with household compensation.</td>
+          </tr>
+          <tr>
+            <td class="horizon">2031–2040</td>
+            <td>Build the systems that let clean capacity compound</td>
+            <td>Grid expansion and permitting reform; circular supply chains for plastics and critical minerals; adaptation finance reaching the poorest quintile; cooling access as a public health standard.</td>
+          </tr>
+          <tr>
+            <td class="horizon">2041–2050</td>
+            <td>Close the loops</td>
+            <td>Net-zero energy systems; near-zero plastic leakage; universal clean energy access; social protection floors that make climate shocks non-catastrophic.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="chapter" id="countercase" aria-labelledby="h-countercase">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter 08</span>
+      <h2 id="h-countercase">The counter-case is about speed, not direction</h2>
+    </div>
+    <div class="prose-col">
+      <p class="lede">The strongest counter-case does not dispute the mechanism. It disputes the speed. Policies currently on the books point toward roughly 3.1 degrees of warming by 2100, per UNEP. The loops are real, and the world is still tightening them faster than it is loosening them.</p>
+      <p>The obstacles are concrete. Clean capital concentrates in rich countries and China, while emerging markets pay the highest financing costs exactly where new demand is largest. Grids and permitting move at bureaucratic speed while solar factories move at manufacturing speed. Critical minerals are geographically concentrated, and their processing is more concentrated still. Rebound effects can eat part of the efficiency dividend as energy gets cheaper. Convergence cuts poverty on average while inequality within countries can widen.</p>
+      <p>Each obstacle, on inspection, is itself a coupling problem. Capital must flow to where the loops are tightest. Grid capacity must reach the regions that will drive the next wave of demand. Mineral supply must diversify through substitution and recycling. The counter-case argues for harder finance and industrial policy, not for a different theory of change. It is a case for accelerating the same levers with more force, and it should be read as the measure of how much slack remains.</p>
+    </div>
+    <aside class="side-col">
+      <div class="note">
+        <h3>Reading the counter-case</h3>
+        <p>Every obstacle names a coupling that is still too strong — capital, grids, minerals, rebound, inequality. None of them names a reason to loosen a different loop.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="chapter" id="measure" aria-labelledby="h-measure">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter 09</span>
+      <h2 id="h-measure">What to measure is loop strength, not single-issue outcomes</h2>
+    </div>
+    <div class="prose-col">
+      <p class="lede">The portfolio approach survives because institutions measure single-issue outcomes and miss the couplings. The right scorecard tracks loop strength directly.</p>
+      <p>Measure the pollution node by ambient PM2.5, household access to clean cooking, and plastic leakage per unit of output. Measure the warming node by emissions and by installed clean capacity, not by pledges. Measure the poverty node by energy access, cooling access, and the share of adaptation finance that reaches the poorest quintile. Measure the couplings themselves: the co-benefit per dollar, the deaths avoided per gigawatt of clean power, the income protected per early-warning dollar.</p>
+      <p>A country's announced targets matter less than whether its solar, storage, and EV adoption curves are bending on schedule, and whether the bends are reaching the households that currently burn biomass indoors. The number that matters most is not any single indicator. It is the slope of the loops as they loosen.</p>
+      <p>Three ministries working in parallel will not solve the polycrisis. Interventions that break the couplings will, and the cheap path is the fast path. Clean technology is now the low-cost option in most markets. Delay no longer buys a cheaper transition; it buys a larger stock of cumulative pollution, more locked-in warming, and more avoidable deaths. The loops are tightest where poverty, pollution, and heat overlap, and that is exactly where the highest-return interventions are waiting.</p>
+    </div>
+    <div class="measure-grid">
+      <div class="measure-card">
+        <h3>Pollution node</h3>
+        <p>Ambient PM2.5 · clean-cooking access · plastic leakage per unit of output</p>
+      </div>
+      <div class="measure-card">
+        <h3>Warming node</h3>
+        <p>Emissions · installed clean capacity · the pledge-to-policy gap</p>
+      </div>
+      <div class="measure-card">
+        <h3>Poverty node</h3>
+        <p>Energy access · cooling access · adaptation finance reaching the poorest quintile</p>
+      </div>
+      <div class="measure-card">
+        <h3>Couplings</h3>
+        <p>Co-benefit per dollar · deaths avoided per gigawatt · income protected per early-warning dollar</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="binding">
+    <span class="label">Binding term</span>
+    <p>Treat pollution, warming, and poverty as a single coupled loop, not a list of separate emergencies. Weight every intervention by how many couplings it breaks; an action that breaks one loop but tightens another has not mitigated the polycrisis — it has rearranged it.</p>
+  </div>
+
+  <section class="sources" id="sources" aria-labelledby="h-sources">
+    <h2 id="h-sources">Sources and methodology</h2>
+    <p style="font-family:var(--sans);font-size:.82rem;color:var(--muted);margin:0 0 1.2rem;">Figures are rounded to the precision the source supports. Inline citations appear in the prose. Where a source publishes a range, the report uses the central estimate and says so.</p>
+    <ol>
+      <li>World Health Organization — <a href="https://www.who.int/news-room/fact-sheets/detail/ambient-(outdoor)-air-quality-and-health">Ambient (outdoor) air pollution fact sheet</a> (2024)</li>
+      <li>World Health Organization — <a href="https://www.who.int/news-room/fact-sheets/detail/household-air-pollution-and-health">Household air pollution fact sheet</a> (2025)</li>
+      <li>World Bank — <a href="https://www.worldbank.org/en/topic/poverty/overview">Poverty overview</a> (2026)</li>
+      <li>World Bank — <a href="https://www.worldbank.org/en/publication/poverty-prosperity-and-planet">Poverty, Prosperity, and Planet Report 2026: Pathways Out of the Polycrisis</a></li>
+      <li>World Meteorological Organization — <a href="https://wmo.int/publication-series/state-of-global-climate-2024">State of the Global Climate 2024</a></li>
+      <li>UNEP — <a href="https://www.unep.org/resources/emissions-gap-report-2024">Emissions Gap Report 2024</a></li>
+      <li>OECD — <a href="https://www.oecd.org/en/publications/global-plastics-outlook_de747aef-en.html">Global Plastics Outlook</a> (2022)</li>
+      <li>Lancet Commission on Pollution and Health — <a href="https://www.thelancet.com/commissions/pollution-and-health">Pollution and health: a global public health crisis</a> (2022 update)</li>
+      <li>International Energy Agency — <a href="https://www.iea.org/reports/world-energy-investment-2025">World Energy Investment 2025</a></li>
+      <li>International Energy Agency — <a href="https://www.iea.org/reports/global-ev-outlook-2025">Global EV Outlook 2025</a></li>
+      <li>IRENA — <a href="https://www.irena.org/Publications">Renewable Power Generation Costs; Renewable Energy and Jobs Annual Review</a></li>
+      <li>Ember — <a href="https://ember-energy.org/data/">Global Electricity Review 2025</a></li>
+      <li>BloombergNEF — <a href="https://about.bnef.com/blog/lithium-ion-battery-pack-prices-see-largest-drop-since-2017/">Battery price survey</a></li>
+      <li>United Nations — <a href="https://trackingsdg7.esmap.org/">Tracking SDG 7: The Energy Progress Report 2024</a></li>
+      <li>NOAA Global Monitoring Laboratory — <a href="https://gml.noaa.gov/ccgg/trends/">Trends in atmospheric carbon dioxide</a></li>
+    </ol>
+    <p style="font-family:var(--sans);font-size:.78rem;color:var(--faint);margin-top:1.4rem;">Methodology: this report synthesizes the sources above; it performs no new primary research. The loop framework and the compound vulnerability multiplier are analytical constructs of H Heuristics, built on the cited data.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="brand">H<span>·</span>Heuristics</span>
+      <p>A research and advisory company built around structured learning, data-driven analysis, and curiosity about how the world works.</p>
+      <p><a href="https://hheuristics.com">hheuristics.com</a> · <a href="https://github.com/Hunterhghs/Addressing-the-Polycrisis">GitHub repository</a></p>
+    </div>
+    <div class="footer-right">
+      <p>Built with the Veles (Fable-5) workflow.<br>Design: light print editorial. Charts: Chart.js. Typefaces: Newsreader, Source Serif 4, Inter.</p>
+      <a class="back-top" href="#top">↑ Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var PALETTE = {
+    ink:"#191712", muted:"#6d6457", teal:"#0e6b60", ember:"#c2410c", gold:"#a8760f",
+    paper:"#f7f2e8", rule:"#d9cfbf"
+  };
+
+  /* Scrollspy */
+  var railLinks = Array.prototype.slice.call(document.querySelectorAll("#chapterRail a"));
+  var sections = railLinks.map(function(a){
+    return document.querySelector(a.getAttribute("href"));
+  }).filter(Boolean);
+  if ("IntersectionObserver" in window) {
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          var id = "#" + entry.target.id;
+          railLinks.forEach(function(a){
+            a.classList.toggle("active", a.getAttribute("href") === id);
+          });
+        }
+      });
+    }, {rootMargin:"-30% 0px -60% 0px", threshold:0});
+    sections.forEach(function(s){ spy.observe(s); });
+  }
+
+  /* Loop diagram node highlighting */
+  var nodes = Array.prototype.slice.call(document.querySelectorAll(".loop-node"));
+  var arrows = document.querySelectorAll(".loop-arrows path");
+  function resetLoop(){
+    arrows.forEach(function(p){ p.style.opacity = "0.55"; });
+  }
+  nodes.forEach(function(node){
+    node.addEventListener("focus", function(){ resetLoop(); });
+    node.addEventListener("mouseenter", function(){ resetLoop(); });
+    node.addEventListener("mouseleave", function(){ resetLoop(); });
+  });
+
+  /* Charts — skip gracefully if the CDN is unavailable */
+  function ready(fn){
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+
+  ready(function(){
+    if (!window.Chart) return;
+
+    Chart.defaults.font.family = "'Inter', sans-serif";
+    Chart.defaults.font.size = 12;
+    Chart.defaults.color = PALETTE.muted;
+
+    function axisGrid(axis){
+      axis.grid.color = PALETTE.rule;
+      axis.grid.lineWidth = 1;
+      axis.border.display = false;
+      axis.ticks.color = PALETTE.muted;
+    }
+
+    var co2 = document.getElementById("chartCO2");
+    if (co2) {
+      new Chart(co2, {
+        type:"line",
+        data:{
+          labels:["1960","1970","1980","1990","2000","2010","2020","2024"],
+          datasets:[{
+            label:"Atmospheric CO₂ (ppm)",
+            data:[317,326,339,354,369,390,414,424],
+            borderColor:PALETTE.teal,
+            backgroundColor:"rgba(14,107,96,0.12)",
+            pointBackgroundColor:PALETTE.teal,
+            pointRadius:3,
+            borderWidth:2.5,
+            tension:0.25,
+            fill:true
+          },{
+            label:"Preindustrial baseline (~280 ppm)",
+            data:[280,280,280,280,280,280,280,280],
+            borderColor:PALETTE.ember,
+            borderDash:[5,5],
+            borderWidth:1.5,
+            pointRadius:0,
+            fill:false
+          }]
+        },
+        options:{
+          responsive:true, maintainAspectRatio:false,
+          scales:{
+            x:{grid:{display:false},border:{display:false},ticks:{color:PALETTE.muted}},
+            y:{min:250, max:450, grid:axisGrid, ticks:{color:PALETTE.muted}}
+          },
+          plugins:{legend:{labels:{usePointStyle:true,boxWidth:8}}}
+        }
+      });
+    }
+
+    var pollution = document.getElementById("chartPollution");
+    if (pollution) {
+      new Chart(pollution, {
+        type:"bar",
+        data:{
+          labels:["Ambient (outdoor)","Household"],
+          datasets:[{
+            label:"Premature deaths per year (millions)",
+            data:[4.2,3.2],
+            backgroundColor:[PALETTE.ember,PALETTE.gold],
+            borderRadius:3,
+            barThickness:44
+          }]
+        },
+        options:{
+          indexAxis:"y",
+          responsive:true, maintainAspectRatio:false,
+          scales:{
+            x:{min:0,max:5,grid:axisGrid,ticks:{color:PALETTE.muted}},
+            y:{grid:{display:false},border:{display:false},ticks:{color:PALETTE.ink,font:{weight:"600"}}}
+          },
+          plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.x + " million premature deaths";}}}}
+        }
+      });
+    }
+
+    var plastics = document.getElementById("chartPlastics");
+    if (plastics) {
+      new Chart(plastics, {
+        type:"line",
+        data:{
+          labels:["1950","1990","2000","2010","2019","2060 (projected)"],
+          datasets:[{
+            label:"Plastics production (million tonnes)",
+            data:[2,120,234,313,460,1231],
+            borderColor:PALETTE.ember,
+            backgroundColor:"rgba(194,65,12,0.10)",
+            pointBackgroundColor:PALETTE.ember,
+            pointRadius:3,
+            borderWidth:2.5,
+            tension:0.25,
+            fill:true
+          }]
+        },
+        options:{
+          responsive:true, maintainAspectRatio:false,
+          scales:{
+            x:{grid:{display:false},border:{display:false},ticks:{color:PALETTE.muted}},
+            y:{min:0,max:1300,grid:axisGrid,ticks:{color:PALETTE.muted,callback:function(v){return v + " Mt";}}}
+          },
+          plugins:{
+            legend:{display:false},
+            tooltip:{callbacks:{label:function(c){return c.parsed.y + " million tonnes";}}}
+          }
+        }
+      });
+    }
+
+    var scenarios = document.getElementById("chartScenarios");
+    if (scenarios) {
+      new Chart(scenarios, {
+        type:"bar",
+        data:{
+          labels:["Current policies","Unconditional pledges","Conditional pledges","Paris goal"],
+          datasets:[{
+            label:"Warming by 2100 (°C)",
+            data:[3.1,2.6,2.5,1.5],
+            backgroundColor:[PALETTE.ember,PALETTE.gold,PALETTE.muted,PALETTE.teal],
+            borderRadius:3,
+            barThickness:34
+          }]
+        },
+        options:{
+          indexAxis:"y",
+          responsive:true, maintainAspectRatio:false,
+          scales:{
+            x:{min:0,max:3.5,grid:axisGrid,ticks:{color:PALETTE.muted,callback:function(v){return v + "°C";}}},
+            y:{grid:{display:false},border:{display:false},ticks:{color:PALETTE.ink,font:{weight:"600"}}}
+          },
+          plugins:{
+            legend:{display:false},
+            tooltip:{callbacks:{label:function(c){return c.parsed.x.toFixed(1) + "°C of warming by 2100";}}}
+          }
+        }
+      });
+    }
+
+    var adoption = document.getElementById("chartAdoption");
+    if (adoption) {
+      new Chart(adoption, {
+        type:"bar",
+        data:{
+          labels:["2010","2024"],
+          datasets:[
+            {label:"Wind + solar share of electricity (%)",data:[2,15],backgroundColor:PALETTE.teal,borderRadius:3,barThickness:30},
+            {label:"Electric vehicles share of new car sales (%)",data:[0.5,20],backgroundColor:PALETTE.ember,borderRadius:3,barThickness:30}
+          ]
+        },
+        options:{
+          responsive:true, maintainAspectRatio:false,
+          scales:{
+            x:{grid:{display:false},border:{display:false},ticks:{color:PALETTE.ink}},
+            y:{min:0,max:25,grid:axisGrid,ticks:{color:PALETTE.muted,callback:function(v){return v + "%";}}}
+          },
+          plugins:{legend:{labels:{usePointStyle:true,boxWidth:8}}}
+        }
+      });
+    }
+  });
+})();
+</script>
+</body>
+</html>
