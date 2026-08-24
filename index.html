@@ -159,20 +159,16 @@
 
   /* Body layout */
   main{max-width:78rem;margin:0 auto;padding:0 1.5rem 4rem;}
-  .report-body{
-    display:grid;grid-template-columns:minmax(0,var(--measure)) minmax(0,1fr);
-    column-gap:3rem;row-gap:2rem;align-items:start;
-  }
+  .report-body{display:block;}
   section.chapter{
-    grid-column:1/-1;
-    display:grid;grid-template-columns:minmax(0,var(--measure)) minmax(0,1fr);
-    column-gap:3rem;align-items:start;
+    max-width:52rem;
+    margin:0 auto;
     padding:3.2rem 0 1rem;
     border-top:1px solid var(--rule);
     scroll-margin-top:7.5rem;
   }
   section.chapter:first-of-type{border-top:0;}
-  .chapter-head{grid-column:1/-1;margin-bottom:1.5rem;}
+  .chapter-head{margin-bottom:1.5rem;}
   .chapter-num{
     font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ember);
     display:block;margin-bottom:.6rem;
@@ -190,12 +186,18 @@
   .prose-col em{font-style:italic;}
 
   .side-col{
-    position:sticky;top:7.5rem;
+    position:static;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));
+    gap:1rem;
+    margin:2rem 0 0;
     font-family:var(--sans);font-size:.8rem;color:var(--muted);line-height:1.55;
-    display:flex;flex-direction:column;gap:1.5rem;
   }
   .side-col .note{
-    border-left:3px solid var(--gold);padding-left:1rem;
+    border:1px solid var(--rule);
+    border-left:3px solid var(--gold);
+    background:var(--paper-bright);
+    padding:1rem 1.1rem;
   }
   .side-col .note h3{
     font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
@@ -204,8 +206,8 @@
   .side-col .note p{margin:0;}
 
   .figure{
-    grid-column:2;
-    margin:0 0 1.5rem;
+    max-width:52rem;
+    margin:1.5rem auto 2rem;
     background:var(--paper-bright);
     border:1px solid var(--rule);
     padding:1.4rem 1.4rem 1rem;
@@ -226,11 +228,11 @@
     border-top:1px solid var(--rule);margin-top:1rem;padding-top:.7rem;
   }
   .figcaption strong{color:var(--ink);}
-  .figure-wide{grid-column:1/-1;}
+  .figure-wide{max-width:52rem;}
   .figure-wide .chart-wrap{height:22rem;}
 
   /* Loop diagram */
-  .loop-figure{grid-column:1/-1;background:transparent;border:0;padding:1rem 0 0;}
+  .loop-figure{background:transparent;border:0;padding:1rem 0 0;}
   .loop-svg-wrap{width:100%;overflow-x:auto;}
   .loop-svg{width:100%;min-width:34rem;height:auto;display:block;}
   .loop-node{cursor:pointer;}
@@ -242,8 +244,8 @@
 
   /* Callout */
   .callout{
-    grid-column:1/-1;
-    margin:2.5rem 0 1rem;
+    max-width:52rem;
+    margin:2.5rem auto 1rem;
     border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
     padding:2.2rem 1.5rem 2rem;
     display:grid;grid-template-columns:12rem minmax(0,1fr);gap:2.5rem;
@@ -257,7 +259,7 @@
   .callout blockquote p{margin:0;}
 
   /* Agenda table */
-  .agenda-wrap{grid-column:1/-1;overflow-x:auto;background:var(--paper-bright);border:1px solid var(--rule);}
+  .agenda-wrap{overflow-x:auto;background:var(--paper-bright);border:1px solid var(--rule);}
   table.agenda{
     width:100%;border-collapse:collapse;font-family:var(--sans);font-size:.86rem;line-height:1.5;
     min-width:40rem;
@@ -276,7 +278,7 @@
 
   /* Measure cards */
   .measure-grid{
-    grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1rem;margin:1.5rem 0 0;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1rem;margin:1.5rem 0 0;
   }
   .measure-card{
     background:var(--paper-bright);border:1px solid var(--rule);padding:1.1rem 1.2rem;
@@ -288,7 +290,7 @@
   .measure-card p{margin:0;font-size:.95rem;line-height:1.55;}
 
   /* Sources */
-  .sources{grid-column:1/-1;border-top:1px solid var(--ink);padding-top:2.2rem;}
+  .sources{max-width:52rem;margin:0 auto;border-top:1px solid var(--ink);padding-top:2.2rem;}
   .sources h2{
     font-family:var(--display);font-size:1.6rem;font-weight:700;margin:0 0 1.4rem;
   }
@@ -302,8 +304,8 @@
 
   /* Binding term */
   .binding{
-    grid-column:1/-1;
-    margin-top:2.5rem;
+    max-width:52rem;
+    margin:2.5rem auto 0;
     background:var(--ink);color:var(--paper);
     padding:2.6rem 2.2rem;
   }
@@ -338,9 +340,6 @@
     .hero-grid{grid-template-columns:1fr;}
     .hero-aside{max-width:26rem;}
     .summary-inner{grid-template-columns:1fr;gap:1rem;}
-    .report-body,section.chapter{grid-template-columns:1fr;}
-    .figure{grid-column:1;}
-    .side-col{position:static;}
     .callout{grid-template-columns:1fr;gap:1rem;}
     .sources ol{columns:1;}
     .footer-inner{grid-template-columns:1fr;}
@@ -711,7 +710,7 @@
     <div>
       <span class="brand">H<span>·</span>Heuristics</span>
       <p>A research and advisory company built around structured learning, data-driven analysis, and curiosity about how the world works.</p>
-      <p><a href="https://hheuristics.com">hheuristics.com</a> · <a href="https://github.com/Hunterhghs/Addressing-the-Polycrisis">GitHub repository</a></p>
+      <p><a href="https://hheuristics.com">hheuristics.com</a></p>
     </div>
     <div class="footer-right">
       <p>Built with the Veles (Fable-5) workflow.<br>Design: light print editorial. Charts: Chart.js. Typefaces: Newsreader, Source Serif 4, Inter.</p>
